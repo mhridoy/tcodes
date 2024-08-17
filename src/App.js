@@ -65,12 +65,14 @@ function App() {
     async function getWebcam() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => {
-          videoRef.current.play();
-          setIsLoading(false);
-        };
-        startDetection();
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.onloadedmetadata = () => {
+            videoRef.current.play();
+            setIsLoading(false);
+          };
+          startDetection();
+        }
       } catch (err) {
         console.error('Error accessing webcam: ', err);
         alert('Please allow access to the camera and ensure you are using a supported browser.');
