@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// SVG Icons
+// SVG Icons (unchanged from previous version)
 const CameraIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -65,17 +65,14 @@ function App() {
     async function getWebcam() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.onloadedmetadata = () => {
-            videoRef.current.play();
-            setIsLoading(false);
-          };
-          startDetection();
-        }
+        videoRef.current.srcObject = stream;
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current.play();
+          setIsLoading(false);
+        };
+        startDetection();
       } catch (err) {
         console.error('Error accessing webcam: ', err);
-        alert('Please allow access to the camera and ensure you are using a supported browser.');
         setIsLoading(false);
       }
     }
